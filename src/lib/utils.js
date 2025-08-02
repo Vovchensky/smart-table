@@ -12,7 +12,14 @@
 export function cloneTemplate(templateId) {
     // Находим шаблон в документе по его ID
     const template = document.getElementById(templateId);
-
+    if (!template) {
+        console.error(`Template with id '${templateId}' not found!`);
+        return { container: document.createElement('div'), elements: {} };
+    }
+    if (!template.content.firstElementChild) {
+        console.error(`Template with id '${templateId}' has no firstElementChild!`);
+        return { container: document.createElement('div'), elements: {} };
+    }
     // Клонируем первый дочерний элемент шаблона вместе со всеми его потомками
     const clone = template.content.firstElementChild.cloneNode(true);
 
